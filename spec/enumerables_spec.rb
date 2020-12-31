@@ -38,5 +38,18 @@ describe Enumerable do
         expect(result).to be_instance_of(Enumerator)
       end
     end
+
+    context 'when a block is given' do
+      it 'returns array itself' do
+        result = numbers.my_each_with_index { |number| number * 2 }
+        expect(result).to eq([1, 2, 3])
+      end
+
+      it 'Calls block with two arguments, the item and its index, for each item in enum' do
+        hash = Hash.new
+        strings.each_with_index { |item, index| hash[item] = index }
+        expect(hash).to eq( { "john"=>0, "david"=>1, "peter"=>2 } )
+      end
+    end
   end
 end
