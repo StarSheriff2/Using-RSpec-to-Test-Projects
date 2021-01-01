@@ -75,6 +75,11 @@ describe Enumerable do
           result = strings.all?(Numeric)
           expect(result).to_not be(true)
         end
+
+        it 'returns true if value in argument is true for all elements' do
+          result = [3, 3, 3].my_all?(3)
+          expect(result).to be(true)
+        end
       end
     end
   end
