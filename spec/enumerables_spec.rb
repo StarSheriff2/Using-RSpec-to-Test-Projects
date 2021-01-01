@@ -45,9 +45,9 @@ describe Enumerable do
         expect(result).to eq([1, 2, 3])
       end
 
-      it 'Calls block with two arguments, the item and its index, for each item in enum' do
+      it 'calls block with two arguments, the item and its index, for each item in enum' do
         hash = Hash.new
-        strings.each_with_index { |item, index| hash[item] = index }
+        strings.my_each_with_index { |item, index| hash[item] = index }
         expect(hash).to eq( { "john"=>0, "david"=>1, "peter"=>2 } )
       end
     end
@@ -55,29 +55,91 @@ describe Enumerable do
 
   describe '#my_all?' do
     it 'returns true if the block never returns false or nil' do
-      result = strings.all? { |word| word.length >= 4 }
+      result = strings.my_all? { |word| word.length >= 4 }
       expect(result).to be(true)
     end
 
     context 'when no block is given' do
       it 'returns true when none of the collection members are false or nil' do
-        result = [nil, true, 99].all?
+        result = [nil, true, 99].my_all?
         expect(result).to_not be(true)
       end
 
       context 'when argument is provided' do
         it 'if pattern is supplied, returns whether pattern === element for every collection member' do
-          result = %w[ant bear cat].all?(/t/)
+          result = %w[ant bear cat].my_all?(/t/)
           expect(result).to_not be(true)
         end
 
         it 'returns true if object type in argument is true for all elements' do
-          result = strings.all?(Numeric)
+          result = strings.my_all?(Numeric)
           expect(result).to_not be(true)
         end
 
         it 'returns true if value in argument is true for all elements' do
           result = [3, 3, 3].my_all?(3)
+          expect(result).to be(true)
+        end
+      end
+    end
+  end
+
+  describe '#my_any?' do
+    it 'returns true if the block ever returns a value other than false or nil' do
+      result = strings.my_any? { |word| word.length < 4 }
+      expect(result).to_not be(true)
+    end
+
+    context 'when no block is given' do
+      it 'returns true if at least one of the collection members is not false or nil' do
+        result = [nil, true, 99].my_any?
+        expect(result).to be(true)
+      end
+
+      context 'when argument is provided' do
+        it 'if pattern is supplied, returns whether pattern === element for any collection member' do
+          result = %w[ant bear cat].my_any?(/t/)
+          expect(result).to be(true)
+        end
+
+        it 'returns true if object type in argument is true for any element' do
+          result = [1, 'a', foo: 2].my_any?(Numeric)
+          expect(result).to be(true)
+        end
+
+        it 'returns true if value in argument is true for any element' do
+          result = [1, 2, 3].my_any?(4)
+          expect(result).to_not be(true)
+        end
+      end
+    end
+  end
+
+  describe 'my_none?' do
+    it 'returns true if the block never returns true for all elements' do
+      result = strings.my_none? { |word| word.length > 6 }
+      expect(result).to be(true)
+    end
+
+    context 'when no block is given' do
+      it 'returns true only if none of the collection members is true' do
+        result = [nil, false].my_none?
+        expect(result).to be(true)
+      end
+
+      context 'when argument is provided' do
+        it 'if pattern is supplied, returns whether pattern === element for none of the collection members' do
+          result = %w[ant bear cat].my_none?(/d/)
+          expect(result).to be(true)
+        end
+
+        it 'returns true if none of the collection members is equal to the object type in argument' do
+          result = [1, 'a', foo: 2].my_none?(Numeric)
+          expect(result).to_not be(true)
+        end
+
+        it 'returns true if value in argument is true for any element' do
+          result = strings.my_none?(4)
           expect(result).to be(true)
         end
       end
