@@ -66,7 +66,7 @@ describe Enumerable do
       end
 
       context 'when argument is provided' do
-        it 'if pattern is supplied, returns whether pattern === element for every collection member' do
+        it 'returns whether pattern === element for every collection member if pattern is supplied' do
           result = %w[ant bear cat].my_all?(/t/)
           expect(result).to_not be(true)
         end
@@ -97,7 +97,7 @@ describe Enumerable do
       end
 
       context 'when argument is provided' do
-        it 'if pattern is supplied, returns whether pattern === element for any collection member' do
+        it 'returns whether pattern === element for any collection member if pattern is supplied' do
           result = %w[ant bear cat].my_any?(/t/)
           expect(result).to be(true)
         end
@@ -115,7 +115,7 @@ describe Enumerable do
     end
   end
 
-  describe 'my_none?' do
+  describe '#my_none?' do
     it 'returns true if the block never returns true for all elements' do
       result = strings.my_none? { |word| word.length > 6 }
       expect(result).to be(true)
@@ -128,7 +128,7 @@ describe Enumerable do
       end
 
       context 'when argument is provided' do
-        it 'if pattern is supplied, returns whether pattern === element for none of the collection members' do
+        it 'returns whether pattern === element for none of the collection members if pattern is supplied' do
           result = %w[ant bear cat].my_none?(/d/)
           expect(result).to be(true)
         end
@@ -142,6 +142,20 @@ describe Enumerable do
           result = strings.my_none?(4)
           expect(result).to be(true)
         end
+      end
+    end
+  end
+
+  describe '#my_count' do
+    it 'counts and returns the number of elements yielding a true value' do
+      result = strings.my_count { |name| name.length == 4 }
+      expect(result).to eq(1)
+    end
+
+    context 'when block is not given' do
+      it 'counts and returns the number of elements that are equal to item in argument if argument is given' do
+        result = strings.my_count('john')
+        expect(result).to eq(1)
       end
     end
   end
