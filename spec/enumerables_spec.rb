@@ -52,4 +52,30 @@ describe Enumerable do
       end
     end
   end
+
+  describe '#my_all?' do
+    it 'returns true if the block never returns false or nil' do
+      result = strings.all? { |word| word.length >= 4 }
+      expect(result).to be(true)
+    end
+
+    context 'when no block is given' do
+      it 'returns true when none of the collection members are false or nil' do
+        result = [nil, true, 99].all?
+        expect(result).to_not be(true)
+      end
+
+      context 'when argument is provided' do
+        it 'if pattern is supplied, returns whether pattern === element for every collection member' do
+          result = %w[ant bear cat].all?(/t/)
+          expect(result).to_not be(true)
+        end
+
+        it 'returns true if object type in argument is true for all elements' do
+          result = strings.all?(Numeric)
+          expect(result).to_not be(true)
+        end
+      end
+    end
+  end
 end
