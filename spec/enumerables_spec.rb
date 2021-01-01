@@ -157,6 +157,20 @@ describe Enumerable do
         result = strings.my_count('john')
         expect(result).to eq(1)
       end
+
+      it 'returns the number of elements in collection' do
+        result = numbers.my_count
+        expect(result).to eq(3)
+      end
+    end
+
+    context 'when a Proc is given as argument' do
+      length_4 = Proc.new { |name| name.length == 4 }
+
+      it 'counts and returns the number of elements yielding a true value to the block' do
+        result = strings.my_count(&length_4)
+        expect(result).to eq(1)
+      end
     end
   end
 end
