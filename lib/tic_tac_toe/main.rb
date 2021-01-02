@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
-require_relative '../lib/game'
-require_relative '../lib/instructions'
-require_relative '../lib/player'
+require_relative '../tic_tac_toe/game'
+require_relative '../tic_tac_toe/instructions'
+require_relative '../tic_tac_toe/player'
 
 def board(arr)
   puts "\n"
