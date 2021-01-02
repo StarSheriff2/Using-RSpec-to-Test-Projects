@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
+git_source(:github) { |using_rspec_to_test_projects| "https://github.com/#{using_rspec_to_test_projects}" }
 
 gem 'rspec', '~>3.0'
 
