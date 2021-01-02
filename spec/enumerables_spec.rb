@@ -55,7 +55,7 @@ describe Enumerable do
 
   describe '#my_select' do
     it 'returns an array containing all elements for which the given block returns a true value' do
-      result = numbers.select { |num| num % 2 == 0  }
+      result = numbers.select(&:even?)
       expect(result).to eq([2])
     end
 
