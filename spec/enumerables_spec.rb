@@ -208,4 +208,44 @@ describe Enumerable do
       end
     end
   end
+
+  describe '#my_inject' do
+    context 'when a block is given' do
+      it 'combines all elements of enumerator by applying binary operation specified by block' do
+        result = numbers.my_inject { |sum, n| sum + n }
+        expect(result).to eq(6)
+      end
+
+      it 'works with strings given in enumerator' do
+        strings = %w{ cat sheep bear }
+        longest = strings.inject { |accu, word| accu.length > word.length ? accu : word }
+        expect(longest).to eq('sheep')
+      end
+
+      context 'when an initial value is given in argument' do
+        it 'it combines all elements of enumerator by applying binary operation specified by block' do
+          result = numbers.my_inject(2) { |product, n| product * n }
+          expect(result).to eq(12)
+        end
+      end
+    end
+
+    context 'when argument is given, but no block is given' do
+      it 'if symbol names a method or operator, combines all elements of enumerator by applying binary operation' do
+        result = numbers.my_inject(:*)
+        expect(result).to eq(6)
+      end
+
+      it 'if an initial value is given and a symbol is given, combines all elements of enumerator by applying binary operation' do
+        result = numbers.my_inject(2, :*)
+        expect(result).to eq(12)
+      end
+    end
+
+    context 'when no block or argument is given' do
+      it 'raises a LocalJumpError exception' do
+        expect { numbers.my_inject }.to raise_error(LocalJumpError)
+      end
+    end
+  end
 end
