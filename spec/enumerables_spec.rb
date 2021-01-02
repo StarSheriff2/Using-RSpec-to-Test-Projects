@@ -1,7 +1,7 @@
-require_relative '../lib/enumerables.rb'
+require_relative '../lib/enumerables'
 
 describe Enumerable do
-  let(:strings) { %w(john david peter) }
+  let(:strings) { %w[john david peter] }
   let(:numbers) { [1, 2, 3] }
 
   describe '#my_each' do
@@ -46,9 +46,9 @@ describe Enumerable do
       end
 
       it 'calls block with two arguments, the item and its index, for each item in enum' do
-        hash = Hash.new
+        hash = {}
         strings.my_each_with_index { |item, index| hash[item] = index }
-        expect(hash).to eq( { "john"=>0, "david"=>1, "peter"=>2 } )
+        expect(hash).to eq({ 'john' => 0, 'david' => 1, 'peter' => 2 })
       end
     end
   end
@@ -103,7 +103,7 @@ describe Enumerable do
         end
 
         it 'returns true if object type in argument is true for any element' do
-          result = [1, 'a', foo: 2].my_any?(Numeric)
+          result = [1, 'a', { foo: 2 }].my_any?(Numeric)
           expect(result).to be(true)
         end
 
@@ -134,7 +134,7 @@ describe Enumerable do
         end
 
         it 'returns true if none of the collection members is equal to the object type in argument' do
-          result = [1, 'a', foo: 2].my_none?(Numeric)
+          result = [1, 'a', { foo: 2 }].my_none?(Numeric)
           expect(result).to_not be(true)
         end
 
@@ -170,10 +170,10 @@ describe Enumerable do
     end
 
     context 'when a Proc is given as argument' do
-      length_4 = Proc.new { |name| name.length == 4 }
+      length_four = proc { |name| name.length == 4 }
 
       it 'counts and returns the number of elements yielding a true value to the block' do
-        result = strings.my_count(&length_4)
+        result = strings.my_count(&length_four)
         expect(result).to eq(1)
       end
     end
@@ -191,20 +191,20 @@ describe Enumerable do
     end
 
     context 'when Proc is given in argument' do
-      upcase_proc = Proc.new { |name| name.upcase }
+      upcase_proc = proc { |name| name.upcase }
 
       it 'returns a new array with the results of running block once for every element in collection' do
         result = strings.my_map(upcase_proc)
-        expect(result).to eq(['JOHN', 'DAVID', 'PETER'])
+        expect(result).to eq(%w[JOHN DAVID PETER])
       end
     end
 
     context 'when a Proc and block are given' do
-      upcase_proc = Proc.new { |name| name.upcase }
+      upcase_proc = proc { |name| name.upcase }
 
       it 'returns a new array with the results of running Proc block once for every element in collection' do
-        result = strings.my_map(upcase_proc) { |name| "Name: " + name }
-        expect(result).to eq(['JOHN', 'DAVID', 'PETER'])
+        result = strings.my_map(upcase_proc) { |name| "Name: #{name}" }
+        expect(result).to eq(%w[JOHN DAVID PETER])
       end
     end
   end
@@ -217,7 +217,7 @@ describe Enumerable do
       end
 
       it 'works with strings given in enumerator' do
-        strings = %w{ cat sheep bear }
+        strings = %w[cat sheep bear]
         longest = strings.inject { |accu, word| accu.length > word.length ? accu : word }
         expect(longest).to eq('sheep')
       end
@@ -236,7 +236,7 @@ describe Enumerable do
         expect(result).to eq(6)
       end
 
-      it 'if an initial value is given and a symbol is given, combines all elements of enumerator by applying binary operation' do
+      it 'if initial value and symbol are given, combines all elements of enumerator by applying binary operation' do
         result = numbers.my_inject(2, :*)
         expect(result).to eq(12)
       end
@@ -257,4 +257,3 @@ describe 'multiply_els' do
     expect(result).to eq(40)
   end
 end
-
