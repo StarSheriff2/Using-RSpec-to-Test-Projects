@@ -22,7 +22,7 @@ In this project I created a test example for my Enumerables Module, which I buil
 4. You will see a dropdown menu. Click on "**Download ZIP**".
 5. Go to the directory where you downloaded the **ZIP file** and open it. Extract its contents to any directory you want in your system.
 6. If you are not in your system terminal/command prompt already, please open it and go to the directory where you cloned the remote repository or extracted the game files.
-7. While in the root directory, run the tests by typing the command `rspec spec/enumerables_spec.rb --format doc in shell to see test results`.
+7. While in the root directory, run the tests by typing the command `rspec spec/enumerables_spec.rb --format doc` to see test results.
 
 ## Live Example
 
