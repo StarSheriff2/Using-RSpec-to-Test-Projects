@@ -249,3 +249,14 @@ describe Enumerable do
     end
   end
 end
+
+# describe Array do
+#   subject(:arr) { [1, 2, 3] }
+
+#   describe 'multiply_els' do
+#     it 'multiples all elements in array and returns product' do
+#       result = multiply_els(arr)
+#       expect(result).to eq(6)
+#     end
+#   end
+# end
