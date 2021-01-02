@@ -53,6 +53,25 @@ describe Enumerable do
     end
   end
 
+  describe '#my_select' do
+    it 'returns an array containing all elements for which the given block returns a true value' do
+      result = numbers.select { |num|  num.even?  }
+      expect(result).to eq([2])
+    end
+
+    it 'works with strings, returning elements for which the given block returns a true value' do
+      result = strings.my_select { |name| name == 'david' }
+      expect(result).to eq(['david'])
+    end
+
+    context 'when no block is given' do
+      it 'returns an enumerator' do
+        result = numbers.my_select
+        expect(result).to be_instance_of(Enumerator)
+      end
+    end
+  end
+
   describe '#my_all?' do
     it 'returns true if the block never returns false or nil' do
       result = strings.my_all? { |word| word.length >= 4 }
