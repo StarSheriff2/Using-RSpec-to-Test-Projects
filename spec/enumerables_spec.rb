@@ -162,6 +162,11 @@ describe Enumerable do
         result = numbers.my_count
         expect(result).to eq(3)
       end
+
+      it 'returns the number of elements in a range' do
+        result = (1..9).my_count
+        expect(result).to eq(9)
+      end
     end
 
     context 'when a Proc is given as argument' do
@@ -170,6 +175,36 @@ describe Enumerable do
       it 'counts and returns the number of elements yielding a true value to the block' do
         result = strings.my_count(&length_4)
         expect(result).to eq(1)
+      end
+    end
+  end
+
+  describe '#my_map' do
+    it 'returns a new array with the results of running block once for every element in collection' do
+      result = numbers.my_map { |num| num**2 }
+      expect(result).to eq([1, 4, 9])
+    end
+
+    it 'returns enumerator if block is not given' do
+      result = numbers.my_map
+      expect(result).to be_instance_of(Enumerator)
+    end
+
+    context 'when Proc is given in argument' do
+      upcase_proc = Proc.new { |name| name.upcase }
+
+      it 'returns a new array with the results of running block once for every element in collection' do
+        result = strings.my_map(upcase_proc)
+        expect(result).to eq(['JOHN', 'DAVID', 'PETER'])
+      end
+    end
+
+    context 'when a Proc and block are given' do
+      upcase_proc = Proc.new { |name| name.upcase }
+
+      it 'returns a new array with the results of running Proc block once for every element in collection' do
+        result = strings.my_map(upcase_proc) { |name| "Name: " + name }
+        expect(result).to eq(['JOHN', 'DAVID', 'PETER'])
       end
     end
   end
