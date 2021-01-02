@@ -1,4 +1,4 @@
-require_relative '../lib/enumerables'
+require_relative '../lib/enumerables/enumerables'
 
 describe Enumerable do
   let(:strings) { %w[john david peter] }
