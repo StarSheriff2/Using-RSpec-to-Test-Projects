@@ -66,4 +66,15 @@ describe Game do
       end
     end
   end
+
+  describe '#turn' do
+    subject(:game_turn) { described_class.new }
+
+    it 'returns string if move is not > 9 or is < 0' do
+      error_message = "error! Please select any number from 1 to 9\n"
+      player = instance_double(Player)
+      result = game_turn.turn(10, player)
+      expect(result).to eq(error_message)
+    end
+  end
 end
