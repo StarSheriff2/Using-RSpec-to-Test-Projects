@@ -84,5 +84,30 @@ describe Game do
       result = game_turn.turn(2, player)
       expect(result).to eq(error_message)
     end
+
+    context 'when user\'s position input is valid' do
+      let(:player) { instance_double(Player, name: 'Johnny', moves: [1, 4]) }
+
+      before do
+        allow(game_turn).to receive(:win)
+        allow(player).to receive(:symbol)
+      end
+
+      it 'sends symbol' do
+        expect(player).to receive(:symbol)
+        game_turn.turn(3, player)
+      end
+
+      it 'sends moves' do
+        expect(player).to receive(:moves)
+        game_turn.turn(3, player)
+      end
+
+      it 'sends push' do
+        moves = player.moves
+        expect(moves).to receive(:push)
+        game_turn.turn(3, player)
+      end
+    end
   end
 end
