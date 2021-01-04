@@ -6,7 +6,7 @@ describe
 
 describe Game do
   describe '#win' do
-    context 'when a player has one straight line on the board' do
+    context 'when player has one straight line on the board' do
       subject(:game_win) { described_class.new }
 
       it "changes @winner to player's name" do
@@ -24,12 +24,16 @@ describe Game do
         winner = game_win.winner
         expect(winner).to eq('Charles')
       end
+    end
 
-      it "it doesn\'t changes @winner variable if there is no straight line" do
-        winner_name = 'Charles'
+    context 'when player has no straight line on the board' do
+      subject(:game) { described_class.new }
+
+      it "it doesn\'t changes @winner variable" do
+        current_player = 'Charles'
         moves = [1, 2, 4]
-        game_win.win(moves, winner_name)
-        winner = game_win.winner
+        game.win(moves, current_player)
+        winner = game.winner
         expect(winner).to_not eq('Charles')
       end
     end
