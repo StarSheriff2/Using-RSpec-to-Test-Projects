@@ -112,6 +112,12 @@ describe Game do
         expect(moves).to receive(:push)
         game_turn.turn(3, player)
       end
+
+      it 'returns a string' do
+        text = "\nJohnny, you selected position 3. Now your move is displayed on the board.\n"
+        result = game_turn.turn(3, player)
+        expect(result).to eq(text)
+      end
     end
   end
 end
