@@ -104,4 +104,14 @@ describe Game do
       end
     end
   end
+
+  describe '#change_turn' do
+    subject(:game_change_turn) { described_class.new }
+
+    it 'changes player_turn to 1 if player_turn has a value of 0' do
+      game_change_turn.change_turn
+      player_turn = game_change_turn.player_turn
+      expect(player_turn).to eq(1)
+    end
+  end
 end
