@@ -97,22 +97,6 @@ describe Game do
         allow(player).to receive(:symbol)
       end
 
-      it 'sends symbol' do
-        expect(player).to receive(:symbol)
-        game_turn.turn(3, player)
-      end
-
-      it 'sends moves' do
-        expect(player).to receive(:moves)
-        game_turn.turn(3, player)
-      end
-
-      it 'sends push' do
-        moves = player.moves
-        expect(moves).to receive(:push)
-        game_turn.turn(3, player)
-      end
-
       it 'returns a string' do
         text = "\nJohnny, you selected position 3. Now your move is displayed on the board.\n"
         result = game_turn.turn(3, player)
