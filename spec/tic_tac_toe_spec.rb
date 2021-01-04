@@ -54,7 +54,7 @@ describe Game do
     context 'when a player has made less than 3 moves' do
       subject(:game_less_moves) { described_class.new }
       let(:player) { instance_double(Player) }
-      let(:winning_combinations) { object_double("Game::WINNING_COMBINATIONS").as_stubbed_const }
+      let(:winning_combinations) { object_double('Game::WINNING_COMBINATIONS').as_stubbed_const }
 
       it 'does not send each' do
         moves = [1, 2]
@@ -83,7 +83,7 @@ describe Game do
 
     it 'returns string if position is marked' do
       error_message = "error! That position is already taken\n"
-      game_turn.game = ['X', 'O', 'X']
+      game_turn.game = %w[X O X]
       player = instance_double(Player)
       result = game_turn.turn(2, player)
       expect(result).to eq(error_message)
