@@ -76,5 +76,13 @@ describe Game do
       result = game_turn.turn(10, player)
       expect(result).to eq(error_message)
     end
+
+    it 'returns string if position is marked' do
+      error_message = "error! That position is already taken\n"
+      game_turn.game = ['X', 'O', 'X']
+      player = instance_double(Player)
+      result = game_turn.turn(2, player)
+      expect(result).to eq(error_message)
+    end
   end
 end
