@@ -27,11 +27,11 @@ describe Game do
 
     context 'when player has no straight line on the board' do
       subject(:game) { described_class.new }
-      let(:player) { instance_double(Player, name: 'Tony', moves: [1, 2, 3]) }
+      let(:player_x) { instance_double(Player, name: 'Tony', moves: [1, 2, 4, 5]) }
 
-      it "it doesn\'t changes @winner variable" do
-        current_player = player.name
-        moves = player.moves
+      it "it doesn\'t change @winner variable" do
+        current_player = player_x.name
+        moves = player_x.moves
         game.win(moves, current_player)
         winner = game.winner
         expect(winner).to_not eq('Tony')
@@ -40,12 +40,12 @@ describe Game do
 
     context 'when there are no moves left and no straight line on the board' do
       subject(:game_draw) { described_class.new }
-      let(:player) { instance_double(Player, moves: [1, 2, 3]) }
+      let(:player_x) { instance_double(Player, moves: [1, 3, 6, 7, 8]) }
 
       it "changes @winner to \'draw\'" do
-        moves = player.moves
+        moves = player_x.moves
         game_draw.game = %w[X O X O O X X X O]
-        game_draw.win(moves, player)
+        game_draw.win(moves, player_x)
         winner = game_draw.winner
         expect(winner).to eq('draw')
       end
