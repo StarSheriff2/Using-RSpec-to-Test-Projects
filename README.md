@@ -4,7 +4,8 @@
 
 > In this project I used RSpec to create and run unit tests for previously completed projects in Ruby.
 
-In this project I created a test example for my Enumerables Module, which I built in another project (project link is [here](https://github.com/StarSheriff2/Enumerables)). I used RSpec to build the unit tests for every method in the enumerable module, #each, #each_with_index, #select, #all?, #any?, #none?, #count, #map, and #inject.
+In this project I created two test example files for two Ruby projects I had previously created, one for an Enumerables Module project (project link is [here](https://github.com/StarSheriff2/Enumerables)), and one for a Tic Tac Toe game (project link is [here](https://github.com/StarSheriff2/rb-tic-tac-toe)).
+I used RSpec to build unit tests for every method in the enumerable module, #each, #each_with_index, #select, #all?, #any?, #none?, #count, #map, and #inject; and for the game file of the Tic Tac Toe game, game.rb, testing the main gameplay methods.
 
 ![screenshot](./assets/screenshot.png)
 
@@ -22,11 +23,12 @@ In this project I created a test example for my Enumerables Module, which I buil
 4. You will see a dropdown menu. Click on "**Download ZIP**".
 5. Go to the directory where you downloaded the **ZIP file** and open it. Extract its contents to any directory you want in your system.
 6. If you are not in your system terminal/command prompt already, please open it and go to the directory where you cloned the remote repository or extracted the project files.
-7. While in the root directory, run the tests by typing the command `rspec spec/enumerables_spec.rb --format doc` to see test results.
+7. While in the root directory, type `bundle install`. This will install Rspec in your system, in case you don't have it installed already. (It also installs Rubocop; however, this gem is not necessary to make the project work).
+8. Finally, run the tests by typing the command `rspec --format doc` to see test results.
 
 ## Live Example
 
-- to run the tests in this live example, type this in the Shell: `rspec spec/enumerables_spec.rb --format doc`
+- to run the tests in this live example, type this in the Shell: `rspec --format doc`
 
 - [Repl.it link](https://repl.it/@StarSheriff2/Using-RSpec-to-Test-Projects).
 
