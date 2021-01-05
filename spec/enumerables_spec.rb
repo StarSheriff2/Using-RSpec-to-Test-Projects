@@ -23,6 +23,11 @@ describe Enumerable do
         expect(result).to eq([1, 2, 3])
       end
 
+      it 'calls the given block once for each element and does not return a new array' do
+        result = numbers.my_each { |number| number * 2 }
+        expect(result).to_not eq([2, 4, 6])
+      end
+
       it 'calls the given block once for each element, passing that element as a parameter' do
         arr = []
         numbers.my_each { |number| arr << number * 2 }
