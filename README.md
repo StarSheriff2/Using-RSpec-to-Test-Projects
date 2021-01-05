@@ -23,7 +23,7 @@ I used RSpec to build unit tests for every method in the enumerable module, #eac
 4. You will see a dropdown menu. Click on "**Download ZIP**".
 5. Go to the directory where you downloaded the **ZIP file** and open it. Extract its contents to any directory you want in your system.
 6. If you are not in your system terminal/command prompt already, please open it and go to the directory where you cloned the remote repository or extracted the project files.
-7. While in the root directory, type `bundle install`. This will install Rspec in your system, in case you don't have it installed already. (It also installs Rubocop; however, this gem is necessary to make the project work).
+7. While in the root directory, type `bundle install`. This will install Rspec in your system, in case you don't have it installed already. (It also installs Rubocop; however, this gem is not necessary to make the project work).
 8. Finally, run the tests by typing the command `rspec --format doc` to see test results.
 
 ## Live Example
