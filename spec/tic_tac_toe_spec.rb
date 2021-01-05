@@ -66,7 +66,7 @@ describe Game do
         moves = player.moves
         game_less_moves.win(moves, player)
         winner = game_less_moves.winner
-        expect(winner).to be(nil)
+        expect(winner).not_to be_truthy
       end
     end
   end
