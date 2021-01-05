@@ -73,36 +73,38 @@ describe Game do
 
   describe '#turn' do
     subject(:game_turn) { described_class.new }
+    let(:player) { instance_double(Player) }
 
-    it 'returns error message if move is not > 0 or < 10' do
-      error_message = "error! Please select any number from 1 to 9\n"
-      player = instance_double(Player)
-      result = game_turn.turn(10, player)
-      expect(result).to eq(error_message)
-    end
+    context 'when user\'s position input is invalid' do
+      it 'returns error message if move is not > 0 or < 10' do
+        error_message = "error! Please select any number from 1 to 9\n"
+        input = 10
+        result = game_turn.turn(input, player)
+        expect(result).to eq(error_message)
+      end
 
-    it 'returns error message if input is not a number' do
-      error_message = "error! Please select any number from 1 to 9\n"
-      input = 'a'.to_i
-      player = instance_double(Player)
-      result = game_turn.turn(input, player)
-      expect(result).to eq(error_message)
-    end
+      it 'returns error message if input is not a number' do
+        error_message = "error! Please select any number from 1 to 9\n"
+        input = 'a'.to_i
+        result = game_turn.turn(input, player)
+        expect(result).to eq(error_message)
+      end
 
-    it 'returns error message if input is a symbol' do
-      error_message = "error! Please select any number from 1 to 9\n"
-      input = '$'.to_i
-      player = instance_double(Player)
-      result = game_turn.turn(input, player)
-      expect(result).to eq(error_message)
-    end
+      it 'returns error message if input is a symbol' do
+        error_message = "error! Please select any number from 1 to 9\n"
+        input = '$'.to_i
+        result = game_turn.turn(input, player)
+        expect(result).to eq(error_message)
+      end
 
-    it 'returns error message if position is marked already on the board' do
-      error_message = "error! That position is already taken\n"
-      game_turn.game = %w[X O X]
-      player = instance_double(Player)
-      result = game_turn.turn(2, player)
-      expect(result).to eq(error_message)
+      it 'returns error message if position is marked already on the board' do
+        error_message = "error! That position is already taken\n"
+        input = 2
+        game_turn.game = %w[X O X]
+        player = instance_double(Player)
+        result = game_turn.turn(input, player)
+        expect(result).to eq(error_message)
+      end
     end
 
     context 'when user\'s position input is valid' do
@@ -139,10 +141,18 @@ describe Game do
   describe '#change_turn' do
     subject(:game_change_turn) { described_class.new }
 
-    it 'changes player_turn to 1 if player_turn has a value of 0' do
+    it 'changes player_turn to 1 if @player_turn has a value of 0' do
+      game_change_turn.player_turn = 0
       game_change_turn.change_turn
       player_turn = game_change_turn.player_turn
       expect(player_turn).to eq(1)
+    end
+
+    it 'doesn\'t return the current value in @player_turn again' do
+      game_change_turn.player_turn = 1
+      game_change_turn.change_turn
+      player_turn = game_change_turn.player_turn
+      expect(player_turn).to_not eq(1)
     end
   end
 end
