@@ -74,14 +74,30 @@ describe Game do
   describe '#turn' do
     subject(:game_turn) { described_class.new }
 
-    it 'returns string if move is not > 9 or is < 0' do
+    it 'returns error message if move is not > 0 or < 10' do
       error_message = "error! Please select any number from 1 to 9\n"
       player = instance_double(Player)
       result = game_turn.turn(10, player)
       expect(result).to eq(error_message)
     end
 
-    it 'returns string if position is marked' do
+    it 'returns error message if input is not a number' do
+      error_message = "error! Please select any number from 1 to 9\n"
+      input = 'a'.to_i
+      player = instance_double(Player)
+      result = game_turn.turn(input, player)
+      expect(result).to eq(error_message)
+    end
+
+    it 'returns error message if input is a symbol' do
+      error_message = "error! Please select any number from 1 to 9\n"
+      input = '$'.to_i
+      player = instance_double(Player)
+      result = game_turn.turn(input, player)
+      expect(result).to eq(error_message)
+    end
+
+    it 'returns error message if position is marked already on the board' do
       error_message = "error! That position is already taken\n"
       game_turn.game = %w[X O X]
       player = instance_double(Player)
@@ -97,10 +113,25 @@ describe Game do
         allow(player).to receive(:symbol)
       end
 
-      it 'returns a string' do
+      it 'returns a string with feedback about the selected position on the board' do
         text = "\nJohnny, you selected position 3. Now your move is displayed on the board.\n"
-        result = game_turn.turn(3, player)
+        input = 3
+        result = game_turn.turn(input, player)
         expect(result).to eq(text)
+      end
+
+      it 'doesn\'t return error message related to invalid number, symbol or character' do
+        error_message = "error! Please select any number from 1 to 9\n"
+        input = 3
+        result = game_turn.turn(input, player)
+        expect(result).to_not eq(error_message)
+      end
+
+      it 'doesn\'t return error message about position already been taken' do
+        error_message = "error! That position is already taken\n"
+        input = 3
+        result = game_turn.turn(input, player)
+        expect(result).to_not eq(error_message)
       end
     end
   end
