@@ -6,18 +6,19 @@ describe Game do
   describe '#win' do
     context 'when player has one straight line on the board' do
       subject(:game_win) { described_class.new }
+      let(:player) { instance_double(Player, name: 'Charles', moves: [1, 2, 3]) }
 
       it "changes @winner to player's name" do
-        winner_name = 'Charles'
-        moves = [1, 2, 3]
+        winner_name = player.name
+        moves = player.moves
         game_win.win(moves, winner_name)
         winner = game_win.winner
         expect(winner).to eq('Charles')
       end
 
       it "changes @winner to player's name if line is in reverse order" do
-        winner_name = 'Charles'
-        moves = [3, 2, 1]
+        winner_name = player.name
+        moves = player.moves
         game_win.win(moves, winner_name)
         winner = game_win.winner
         expect(winner).to eq('Charles')
@@ -26,22 +27,23 @@ describe Game do
 
     context 'when player has no straight line on the board' do
       subject(:game) { described_class.new }
+      let(:player) { instance_double(Player, name: 'Tony', moves: [1, 2, 3]) }
 
       it "it doesn\'t changes @winner variable" do
-        current_player = 'Charles'
-        moves = [1, 2, 4]
+        current_player = player.name
+        moves = player.moves
         game.win(moves, current_player)
         winner = game.winner
-        expect(winner).to_not eq('Charles')
+        expect(winner).to_not eq('Tony')
       end
     end
 
     context 'when there are no moves left and no straight line on the board' do
       subject(:game_draw) { described_class.new }
-      let(:player) { instance_double(Player) }
+      let(:player) { instance_double(Player, moves: [1, 2, 3]) }
 
       it "changes @winner to \'draw\'" do
-        moves = [1, 2, 4]
+        moves = player.moves
         game_draw.game = %w[X O X O O X X X O]
         game_draw.win(moves, player)
         winner = game_draw.winner
@@ -51,17 +53,17 @@ describe Game do
 
     context 'when a player has made less than 3 moves' do
       subject(:game_less_moves) { described_class.new }
-      let(:player) { instance_double(Player) }
+      let(:player) { instance_double(Player, moves: [1, 2]) }
       let(:winning_combinations) { object_double('Game::WINNING_COMBINATIONS').as_stubbed_const }
 
       it 'does not send each' do
-        moves = [1, 2]
+        moves = player.moves
         expect(winning_combinations).to_not receive(:each)
         game_less_moves.win(moves, player)
       end
 
       it 'does not change state of winner' do
-        moves = [1, 2]
+        moves = player.moves
         game_less_moves.win(moves, player)
         winner = game_less_moves.winner
         expect(winner).to be(nil)
