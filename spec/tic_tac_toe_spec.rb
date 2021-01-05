@@ -2,8 +2,6 @@ require_relative '../lib/tic_tac_toe/game'
 require_relative '../lib/tic_tac_toe/instructions'
 require_relative '../lib/tic_tac_toe/player'
 
-describe
-
 describe Game do
   describe '#win' do
     context 'when player has one straight line on the board' do
