@@ -38,7 +38,7 @@ I used RSpec to build unit tests for every method in the enumerable module, #eac
 
 - GitHub: [@StarSheriff2](https://github.com/StarSheriff2)
 - Twitter: [@Turo_83](https://twitter.com/Turo_83)
-- LinkedIn: [Carlos Alvarez](https://www.linkedin.com/in/carlosalvarezveroy/)
+- LinkedIn: [Arturo Alvarez](https://www.linkedin.com/in/arturoalvarezv/)
 
 ## Contributing
 
